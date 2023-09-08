@@ -17,20 +17,20 @@ window.onload = function() {
     }
   })
 
-  // closes sidebar and all nested submenus
+  // closes side menu and all nested submenus
   const closeSideMenu = () => {
     document.querySelector('.sidebar').classList.remove("is-opened")
 
     const menuCheckboxes = document.querySelectorAll('.menu-checkbox')
     for(let item of menuCheckboxes){
-      item.checked = false  // снятие чекбоксов, отвечающих за вложенные меню, чтобы при закрытии по крестику закрывались все вложенные меню
+      item.checked = false
     }
   }
 
   // converts cyrillic characters to latin
   function transliterate(word){
     let answer = ""
-      , a = {};
+      , a = {}
 
     a["Ё"]="YO";a["Й"]="I";a["Ц"]="TS";a["У"]="U";a["К"]="K";a["Е"]="E";a["Н"]="N";a["Г"]="G";a["Ш"]="SH";a["Щ"]="SCH";a["З"]="Z";a["Х"]="H";a["Ъ"]="'";
     a["ё"]="yo";a["й"]="i";a["ц"]="ts";a["у"]="u";a["к"]="k";a["е"]="e";a["н"]="n";a["г"]="g";a["ш"]="sh";a["щ"]="sch";a["з"]="z";a["х"]="h";a["ъ"]="'";
@@ -62,7 +62,7 @@ window.onload = function() {
     return li
   }
 
-  // generates complex le element of side menu, which contains nested elements
+  // generates complex li element of side menu, which contains nested elements
   function generateComplexNode(node){
     let uid = transliterate(node.title.replace(/ /g, '_')).toLowerCase()
     let li = document.createElement('li')
@@ -133,12 +133,8 @@ window.onload = function() {
       const node = stack.shift()
       if(!node?.children){
         html.append(generateSimpleLi(node))
-        // generate and insert <li>
       } else {
-        // generateComplexNode(node)
-        // generate complex tag <...>
         html.append(generateComplexNode(node))
-        // stack.unshift(...node.children)
       }
     }
     return html
